@@ -1,7 +1,7 @@
 {
-  "name": "cli-library-template",
+  "name": "your-library-name",
   "version": "0.0.1",
-  "description": "A toolkit for note management and generation",
+  "description": "Your library description",
   "main": "dist/library.umd.js",
   "module": "dist/library.es.js",
   "types": "dist/index.d.ts",
@@ -14,10 +14,9 @@
   },
   "keywords": [
     "note-taking",
-    "productivity",
-    "cli-library"
+    "productivity"
   ],
-  "author": "Alioth",
+  "author": "Your name",
   "license": "ISC",
   "files": [
     "dist/**/*",
