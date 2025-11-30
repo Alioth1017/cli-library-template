@@ -2,15 +2,38 @@
   "name": "your-library-name",
   "version": "0.0.1",
   "description": "Your library description",
-  "main": "dist/library.umd.js",
-  "module": "dist/library.es.js",
+  "packageManager": "pnpm@10.23.0",
+  "engines": {
+    "node": ">=24.10.0"
+  },
+  "main": "dist/index.js",
+  "module": "dist/index.mjs",
   "types": "dist/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./dist/index.d.ts",
+      "import": "./dist/index.mjs",
+      "require": "./dist/index.js"
+    }
+  },
   "bin": {
     "your-cli-command": "dist/cli.js"
   },
   "scripts": {
-    "build": "rollup -c && tsup && tsc --emitDeclarationOnly",
-    "prepublishOnly": "npm run build && np --no-cleanup --yolo --no-publish --any-branch"
+    "preinstall": "npx only-allow pnpm",
+    "build": "tsup",
+    "dev": "tsup --watch",
+    "test": "vitest",
+    "test:coverage": "vitest run --coverage",
+    "lint": "biome check src",
+    "format": "biome check --write src",
+    "prepublishOnly": "npm run build && np --no-cleanup --yolo --no-publish --any-branch && npm run build",
+    "prepare": "husky"
+  },
+  "lint-staged": {
+    "*.{js,ts,cjs,mjs,json}": [
+      "biome check --write --no-errors-on-unmatched"
+    ]
   },
   "keywords": [
     "note-taking",
@@ -33,17 +56,14 @@
     "commander": "^12.1.0"
   },
   "devDependencies": {
-    "@babel/plugin-transform-runtime": "^7.24.7",
-    "@rollup/plugin-babel": "^6.0.4",
-    "@rollup/plugin-commonjs": "^26.0.1",
-    "@rollup/plugin-json": "^6.1.0",
-    "@rollup/plugin-node-resolve": "^15.2.3",
-    "@rollup/plugin-terser": "^0.4.4",
-    "@rollup/plugin-typescript": "^11.1.6",
+    "@biomejs/biome": "^2.3.8",
     "@types/node": "^22.0.2",
+    "@vitest/coverage-v8": "^4.0.14",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
     "np": "^10.0.7",
-    "rollup": "^4.19.2",
     "tsup": "^8.2.3",
-    "typescript": "^5.5.4"
+    "typescript": "^5.5.4",
+    "vitest": "^4.0.14"
   }
 }
